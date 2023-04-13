@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec = "http://www.thymeleaf.org/extras/spring-security">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, Spring</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Used Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">
+                        (현재 유저:<span sec:authentication="name"></span>)로그아웃</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Start 여기에 해당하는 영역에 원하는 페이지가 들어간다.(signup_form에 적용 , 나머지 페이지에도 다 적용해주면 고정적으로 다 가지는 layout이 존재하게 된다.)-->
+<th:block layout:fragment="content"></th:block>
+<!-- End  이 뒷부분은 JS를 적용하여 창이 작은 경우 버튼을 누르면 로그인 화면이 보이도록 하는 것을 구현했다.-->
+<script th:src="@{/bootstrap.min.js}"></script>
+</body>
+</html>
